@@ -3,12 +3,10 @@ library(ggplot2)
 library(dplyr)
 library(ACMEOscillation)
 
+setwd('/home/robinson/Desktop/scripts/R scripts/')
+source("oscillations.R")
 
-source("/home/robinson/Desktop/scripts/R scripts/All/All/oscillations.R")
-
-
-
-setwd('/home/robinson/Data/confocal_extensometer/acid_growth/_2018_04_09_acid_growth.lif - oes2_2_3das_ii - C=0')
+setwd('/home/robinson/Data/confocal_extensometer/FR_project/2017_08_28/_2017_12_19_fr.lif - box1_b5 - C=0')
 x<-read.csv('tracking.csv')
 x$Length<-(x$Y1-x$Y0)
 ggplot(data=x,aes(x=Time,y=Length))+geom_line()+theme_bw()
@@ -64,8 +62,13 @@ write.csv(new3,'new3.csv')
 ggplot(data=new2,aes(x=Time,y=Strain))+geom_line()+theme_bw()
 ggplot(data=new3,aes(x=Time,y=Strain))+geom_point()+theme_bw()
 
-a<-new3$Strain
+a=new3$Strain
+print(new3$Strain)
+Strain=mean(new3$Strain)
+print(Strain)
+
+a=a[a<0.1]
+#a=a[a>0.01]
+a=a[a>0.05]
 mean(a)
-a<-a[a>0.025]
-a<-a[a<0.1]
 
